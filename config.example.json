@@ -7,6 +7,7 @@
   "work_dir": "C:\\ExamplePrivate\\ExcelImageServer\\work",
   "public_log_dir": "C:\\ExamplePublic\\xml",
   "public_log_filename": "excel_image_server.log",
+  "max_log_lines": 2000,
   "max_upload_mb": 100,
   "max_local_images_upload_mb": 500,
   "hard_max_output_mb": 100,

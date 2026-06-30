@@ -194,6 +194,27 @@ class UrlMappingTests(unittest.TestCase):
         )
         self.assertEqual(list(server.LOG_FILE.parent.glob("*.tmp")), [])
 
+    def test_prepare_public_log_preserves_recent_lines(self):
+        server.MAX_LOG_LINES = 2
+        server.LOG_FILE.write_text("one\ntwo\nthree\n", encoding="utf-8-sig")
+
+        server.prepare_public_log()
+
+        self.assertEqual(
+            server.LOG_FILE.read_text(encoding="utf-8-sig").splitlines(),
+            ["two", "three"],
+        )
+
+    def test_configure_runtime_does_not_clear_public_log(self):
+        server.LOG_FILE.write_text("old line\n", encoding="utf-8-sig")
+
+        server.configure_runtime(dict(server.CONFIG))
+
+        self.assertEqual(
+            server.LOG_FILE.read_text(encoding="utf-8-sig").splitlines(),
+            ["old line"],
+        )
+
     def test_result_filename_keeps_original_name(self):
         self.assertEqual(
             server.make_download_filename(

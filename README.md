@@ -223,6 +223,7 @@ http://example.internal/static/xml/images_export.xml
   "work_dir": "C:\\ExamplePrivate\\ExcelImageServer\\work",
   "public_log_dir": "C:\\ExamplePublic\\xml",
   "public_log_filename": "excel_image_server.log",
+  "max_log_lines": 2000,
   "max_upload_mb": 100,
   "max_local_images_upload_mb": 500,
   "hard_max_output_mb": 100,
@@ -249,6 +250,7 @@ http://example.internal/static/xml/images_export.xml
 - `public_log_dir` - папка публичного лога.
 - `public_log_filename` - имя публичного лога.
 - `public_log_url` - опциональная готовая ссылка на лог.
+- `max_log_lines` - максимальная длина публичного лога. По умолчанию 2000 строк.
 - `max_upload_mb` - максимальный размер Excel-файла.
 - `max_local_images_upload_mb` - максимальный общий размер локальных картинок, которые браузер отправит на сервер.
 - `hard_max_output_mb` - жесткий максимум результата.
@@ -377,6 +379,8 @@ Get-ChildItem "<WORK_DIR>\python_temp" -Force
 В приложении нет отдельного публичного `/log`. Лог должен открываться через Caddy или другой статический сервер.
 
 Публичный лог нужен только для понимания, что сервис жив и работает. Он не является местом хранения пользовательских данных.
+
+Лог сохраняет последние `max_log_lines` строк. По умолчанию это 2000 строк. Когда строк становится больше, старые строки удаляются, новые продолжают дописываться. При перезапуске сервиса лог не очищается.
 
 ## Что делать, если остались временные файлы
 

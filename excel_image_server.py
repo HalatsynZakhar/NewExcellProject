@@ -168,17 +168,16 @@ def log(message: str) -> None:
         print(f"[{timestamp}] Could not write log {LOG_FILE}: {error}", flush=True)
 
 
-def reset_public_log() -> None:
+def prepare_public_log() -> None:
     if LOG_FILE is None:
         return
     try:
         with shared_log_lock():
             LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
-            if LOG_FILE.exists():
-                wipe_file(LOG_FILE)
-            LOG_FILE.write_bytes(UTF8_BOM)
+            ensure_utf8_bom(LOG_FILE)
+            trim_log_file()
     except Exception:
-        print("Could not reset public log.", flush=True)
+        print("Could not prepare public log.", flush=True)
 
 
 def path_is_inside(child: Path, parent: Path) -> bool:
@@ -320,7 +319,7 @@ def configure_runtime(config: dict[str, Any]) -> None:
     PROCESS_LOCK = threading.Lock()
     with PROGRESS_LOCK:
         JOBS.clear()
-    reset_public_log()
+    prepare_public_log()
     config["work_dir"].mkdir(parents=True, exist_ok=True)
     secure_delete_tree(config["work_dir"] / "jobs")
     (config["work_dir"] / "jobs").mkdir(parents=True, exist_ok=True)
