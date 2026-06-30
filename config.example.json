@@ -1,0 +1,21 @@
+{
+  "host": "0.0.0.0",
+  "port": 8091,
+  "xml_url": "http://example.internal/static/xml/images_export.xml",
+  "images_dir": "C:\\ExampleData\\ProductPhotos",
+  "images_base_url": "http://example.internal/static/foto/",
+  "work_dir": "C:\\ExamplePrivate\\ExcelImageServer\\work",
+  "public_log_dir": "C:\\ExamplePublic\\xml",
+  "public_log_filename": "excel_image_server.log",
+  "max_upload_mb": 100,
+  "max_local_images_upload_mb": 500,
+  "hard_max_output_mb": 100,
+  "default_desired_output_mb": 20,
+  "default_start_row": 2,
+  "default_article_column": "A",
+  "default_image_column": "B",
+  "default_cell_background_color": "D9D9D9",
+  "image_padding_px": 1,
+  "image_width_guard_px": 6,
+  "download_timeout_seconds": 20
+}

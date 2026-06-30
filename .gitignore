@@ -1,0 +1,10 @@
+.venv/
+logs/
+work/
+config.json
+__pycache__/
+*.pyc
+*.pyo
+*.pid
+*.log
+*.tmp
